@@ -35,7 +35,18 @@
 
 
     </div>
-    <form class="needs-validation mx-5" novalidate>
+
+
+      {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><p class="alert alert-success" >{{ message }}</p></li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+    <form action="" method="POST" class="needs-validation mx-5" novalidate>
+
+    {% csrf_token %}
         <div class="form-row mt-5 ">
             <div class="col-md-3 mb-2">
                 <label for="validationCustom01">Full Name</label>
@@ -77,7 +88,7 @@
             <div class="col-md-3 mb-2">
                 <label for="validationCustom03">Date of Birth</label>
 
-                <input type="date" class="form-control" id="validationCustom03" placeholder="Enter Date" required>
+                <input type="date"  name="dateofbirth"class="form-control" id="validationCustom03" placeholder="Enter Date" required>
             </div>
             <div class="invalid-feedback">
                 Please provide a valid date of birth.
@@ -87,8 +98,8 @@
                 <label for="validationCustom03">Gender</label>
 
                 <select class="form-select" aria-label="Default select example" name="gender" required>
-                    <option value="1">male</option>
-                    <option value="2">female</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
                 </select>
             </div>
             <div class="invalid-feedback">
@@ -97,8 +108,8 @@
             <div class="col-md-3 mb-2">
                 <label for="validationCustom03">Martial Status</label>
                 <select class="form-select" aria-label="Default select example" name="martial" required>
-                    <option value="1">Married</option>
-                    <option value="2">Unmarried</option>
+                    <option value="Married">Married</option>
+                    <option value="Unmarried">Unmarried</option>
                 </select>
             </div>
             <div class="invalid-feedback">
@@ -113,31 +124,16 @@
                 Please provide a valid nationality.
             </div>
         </div>
-        <div class="form-row  ">
-            <div name="language" class="form-inline  ">
-                <label> Language: </label>
-                <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> kannda
-                </label>
-                <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> English
-                </label>
-                <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> Hindi
-                </label>
-                <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> Tamil
-                </label>
-                <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> Telugu
-                </label> <label class="checkbox-inline mx-3">
-                    <input type="checkbox" value=""> Other
-                </label>
-
-
+            <div  class=" col-md-6   pl-2 ">
+               
+                <label for="validationCustom03">Language</label>
+                <input type="text" class="form-control" id="validationCustom02" placeholder="Hindi, English, ..."
+                    name="language" required>
 
 
             </div>
+            <div class="invalid-feedback">
+                Please provide a valid nationality.
         </div>
 
         <div class="form-row mt-4 ">
@@ -199,7 +195,7 @@
 
             <div class="col-md-6 mt-2">
                 <label for="validationCustom02">Name Of Owner / Employer </label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Name" name="ownername"
+                <input type="text" class="form-control" id="validationCustom02" name="ownername"
                     required>
                 <div class="valid-feedback">
                     Looks good!
@@ -327,12 +323,12 @@
            <label  class="mt-3"
            for="validationCustom02"> Present Address Same as Permanent Address </label>
 
-           <label class = "checkbox-inline ml-4">
-            <input  class=" ml-4" type = "checkbox" value = "" name="yes">Yes
-         </label>
-         <label class = "checkbox-inline ml-4">
-            <input type="checkbox" value="" name="no">No
-         </label>
+
+            <select class="form-select" aria-label="Default select example" name="presentsameperma" required>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+            </select>
+        </div>
          
            <div class="border border-dark mt-3  ">
             <h4 class="text-center text-success"> Permanent Address Details</h4>
@@ -341,7 +337,7 @@
 
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">Address</label>
-        <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="address2"
+        <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="peraddress"
             required></textarea>
         <div class="valid-feedback">
             Looks good!
@@ -349,7 +345,7 @@
     </div>
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">Village / City</label>
-        <input type="text" class="form-control" id="validationCustom02"  name="address3"
+        <input type="text" class="form-control" id="validationCustom02"  name="pervillcity"
             required>
         <div class="valid-feedback">
             Looks good!

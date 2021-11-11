@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 admin.site.site_header = "Tenantverify Admin"
@@ -34,10 +36,11 @@ urlpatterns = [
     path('contact/', include('home.urls')),
     path('media/', include('home.urls')),
     path('service/', include('home.urls')),
-    path('login/', include('home.urls')),
-    path('signup/', include('home.urls')),
-    path('forgot/', include('home.urls')),
-    path('form/' , include('home.urls')),
+    path('otp/', include('home.urls')),
+    path('register/', include('home.urls')),
+    path('login_otp/', include('home.urls')),
+    path('tdata/' , include('home.urls')),
+    path('login/', include('home.urls'))
 
 
 
@@ -45,7 +48,6 @@ urlpatterns = [
 
     
    
-]
-from django.conf import settings
-from django.conf.urls.static import static
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
