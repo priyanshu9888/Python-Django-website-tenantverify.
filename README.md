@@ -1,5 +1,9 @@
-# website
- # web application using django  python 
+
+=======
+ web application using django 
+![alt text](https://github.com/priyanshu9888/tanentverify-image/blob/main/readme.png
+)
 
 
-![GitHub Logo](/static/FireShot Capture 001 - Tenantverify - Home - 127.0.0.1.png)
+ 
+>>>>>>> 75d3b4e8b1e299d67cfc8e0b13b66d5e367d9574
