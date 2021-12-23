@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Created By Tenantverify -->
+<head>
+  {% include 'includes/header.html' %}
+  <title>Tenantverify - {% block title %} {% endblock %} </title>
+  <meta name="title" content="Tenantverify | Background Verification Company in Bangalore">
+<meta name="description" content="We help Societies, Landlords, Property Managers and Employers to verify the background of their Tenants, PGs, Domestic helps, Housekeeping, Gardeners, Security Guards, Cooks, Drivers and Employees of all other sector to achieve a greater sense of confidence when allowing them to rent their place or employ them.">
+<meta name="keywords" content="Societies, Landlords, Property Managers and Employers to verify the background of their Tenants, PGs, Domestic helps, Housekeeping, Gardeners, Security Guards, Cooks, Drivers">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="author" content="priyanshu-singh">
+
+</head>
+<body>
+    <!-------navbar includer-->
+    {% include 'includes/nav.html' %}
+    <!-------navbar end -->
+  <div class="main">
+    <!-- Hero Banner Section -->
+    {% block banner %}{% endblock banner %}
+    <!-- Hero Banner Section -->
+    {% block content %}{% endblock content %}
+    <!-- Hero Section -->
+    {% include 'includes/footer.html' %}
+    <!-- Footer Section End-->
+    {% block javascript %}
+    <script>
+      $(document).ready(function () {
+        $('.btn').click(function () {
+            $('.items').toggleClass("show");
+            $('ul li').toggleClass("hide");
+        });
+      });
+    </script>
+    {% endblock javascript %}
+  </div>
+</body>
+</html>

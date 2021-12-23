@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% block banner %}
+{% include './login-banner.html' %}
+{% endblock banner %}
+{% block content %}
+<!-- Message -->
+{% if messages%}
+{%for message in messages%}
+<div class="container mt-3 mb-5 message alert alert-{{message.tags}} text-center">{{message}}</div>
+{%endfor%}
+{%endif%}
+<!-- Regsitration form -->
+<div class="mt-5 mb-5 login-form pb-3  container shadow">
+<h5 class="p-3">An OTP has been send to your mobile number</h5>
+<form method="POST" class="p-3" novalidate> {% csrf_token%}
+<input type="text" name="otp" placeholder="paste an OTP here">
+<button class="btn btn-warning" name="registration" required>Submit</button>
+</form>
+</div>
+{% endblock content %}

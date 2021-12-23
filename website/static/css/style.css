@@ -1,7 +1,6 @@
 
 
 
-
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 *{
   margin: 0;
@@ -32,11 +31,12 @@
     color: rgb(216, 195, 10);
     transition: all 0.3s ease;
 }
-nav{
-  background: #151515;
-  padding: 5px 40px;
-
+nav {
+    background: #262425;
+    padding: 2px 40px;
 }
+
+
 nav ul{
   list-style: none;
   display: flex;
@@ -93,9 +93,9 @@ nav ul li i{
 nav ul li.btn{
   display: none;
 }
-nav ul li.btn.hide i:before{
+/* nav ul li.btn.hide i:before{
   content: '\f00d';
-}
+} */
 @media all and (max-width: 900px){
   nav{
     padding: 5px 30px;
@@ -122,8 +122,8 @@ nav ul li.btn.hide i:before{
 
 /*--------navbar end ------*/
 /*hero banner-----*/
-.hd a{
-    color: #fff;
+.hd a {
+    color: rgb(8, 8, 8);
     font-size: 35px;
     font-weight: 600;
 }
@@ -138,17 +138,14 @@ nav ul li.btn.hide i:before{
 .text-secondary my-5 p{
     color: black;
 }
-.hero-banner .btn {
+/* .hero-banner .btn {
     position: relative;
     overflow: hidden;
-    z-index: 9;
+} */
+.hero-bannerr .btn-primary {
+    color: #1a1a91;
 }
-.hero-banner .btn-primary {
-    color: #2f2f41;
-    background-color: rgba(1, 164, 121, 0.1);
-    border-color: #01a479;
-}
-.hero-banner .btn:before {
+/* .hero-banner .btn::before {
     content: "";
     background: #ed5561;
     width: 4px;
@@ -162,7 +159,7 @@ nav ul li.btn.hide i:before{
     -ms-transition: all 0.5s ease-in-out 0s;
     -o-transition: all 0.5s ease-in-out 0s;
     transition: all 0.5s ease-in-out 0s;
-}
+} */
 .hero-banner .btn:hover:before {
     width: 100%;
 }
@@ -286,7 +283,7 @@ nav ul li.btn.hide i:before{
 /*-----why tenent-------*/
 
 .our-services {
-    background-image: url(https://tenantverify.in/wp-content/uploads/2020/12/Group-11436.png);
+    background-image: url(https://github.com/priyanshu9888/tanentverify-image/blob/main/lineee.png?raw=true);
     padding: 70px 0px;
 }
 .service-box {
@@ -327,7 +324,7 @@ nav ul li.btn.hide i:before{
 
 
 footer {
-    background: #f3ef07;
+    background: #e29c04;
     color: rgb(14, 13, 13);
     font-size: 14px;
 }
@@ -362,7 +359,7 @@ footer .social-links a:hover {
 }
 footer h4 {
     font-size: 18px;
-    color: #cddc39;
+    color: #cf8e16;
     padding-bottom: 12px;
 }
 footer .footer-menus {
@@ -881,3 +878,93 @@ ul .a  {
         display: inline-block;
        }
        
+
+
+.navbar-brand {
+        display: inline-block;
+        padding-top: .3125rem;
+        padding-bottom: .3125rem;
+        margin-right: 6rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+.signup-form{
+    width:450px;
+    margin-left: 450px;
+    font-family: 'Zen Dots', cursive;
+    border-radius: 15px;
+}
+.signup-form h3, .otp-signup-form h5, .login-form h3, .otp-login-form h5, .otp-email-form h5, .change-password-form h3{
+    background-color: #d68a18;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.signup-form form input, .otp-signup-form form input{
+    width: 350px;
+    height: 35px;
+}
+.signup-form form button, .otp-signup-form form button, .login-form button, .otp-login-form button, .otp-email-form button , .logout-btn, .signup-btn, .login-btn, .change-password-form form button{
+    background-color: #e84545;
+    color: white;
+    font-family: 'Zen Dots', cursive;
+
+}
+
+.otp-signup-form, .otp-login-form, .otp-email-form{
+    width: 600px;
+    margin-left: 400px;
+    font-family: 'Zen Dots', cursive;
+    border-radius: 15px;
+
+}
+
+.login-form, .change-password-form{
+    width: 500px;
+    margin-left: 450px;
+    font-family: 'Zen Dots', cursive;
+    border-radius: 15px;
+}
+
+.login-form form input, .change-password-form form input{
+    width: 400px;
+    height: 35px;
+}
+
+.message , h3{
+    font-family: 'Zen Dots', cursive;
+}
+span{
+    font-family: 'Zen Dots', cursive;
+    
+}
+a{
+    text-decoration:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

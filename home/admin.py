@@ -4,15 +4,15 @@ from home.models import Apointment
 from home.models import Contact
 from home.models import Tdata
 from import_export.admin import ImportExportModelAdmin
-from home.models import Profile
+from .models import *
 # from home.views import Apointment, contact
 
 # Register your models here.
 
-class ApointmentAdmin(admin.ModelAdmin):
+class ApointmentAdmin( ImportExportModelAdmin ,admin.ModelAdmin):
     list_display=('name', 'phone','email','option','desc')
 admin.site.register(Apointment , ApointmentAdmin)
-class ContactAdmin(admin.ModelAdmin):
+class ContactAdmin( ImportExportModelAdmin, admin.ModelAdmin):
     list_display=('name','email','phone','desc', )
 admin.site.register(Contact , ContactAdmin)
 
@@ -25,4 +25,6 @@ class TdataAdmin(ImportExportModelAdmin ,admin.ModelAdmin ):
      'police2','period2','image','document',)
 admin.site.register( Tdata, TdataAdmin)
 
-admin.site.register(Profile)
+@admin.register(Profile)
+class ProfileAdmin( ImportExportModelAdmin , admin.ModelAdmin):
+    list_display = ['user','phone_number','email_verified','uuid']

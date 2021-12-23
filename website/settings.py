@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+from decouple import config
 from pathlib import Path
 from django.contrib.messages import constants as messages
 from django.utils.regex_helper import flatten_result
@@ -23,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_80(^e0fra-ng3^%67@+ye9o2ji+fa91mmx=coplvg1j_z_+(b'
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -34,6 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'website',
     'import_export',
+    
     
     
 ]
@@ -56,7 +60,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = 'website.urls'
+ROOT_URLCONF = config('webname')
 
 TEMPLATES = [
     {
@@ -80,12 +84,20 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': config('DBNAME'),
+		'USER': config('USER'),
+		'PASSWORD': config('PASSWORD'),
+		'HOST':config('HOST'),
+		'PORT':'3306',
+	}
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -125,12 +137,13 @@ AUTH_KEY = 'YOUR_KEY_HERE'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR/ 'media'
 #added manually
 
-STATICSFILES_DIRS = [
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")    
 ]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -141,3 +154,21 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     
 ]
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+LOGOUT_REDIRECT_URL = '/login/'
+
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+
+
+
+
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer #  = 'django-insecure-_80(^e0fra-ng3^%67@+ye9o2ji+fa91mmx=coplvg1j_z_+(b'

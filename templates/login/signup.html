@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!-- Message -->
+{% if messages%}
+{%for message in messages%}
+<div class="container mt-3 message alert alert-{{message.tags}} text-center">{{message}}</div>
+{%endfor%}
+{%endif%}
+<!-- Regsitration form -->
+<!-- Message -->
+{% if messages%}
+{%for message in messages%}
+<div class="container mt-3 message alert alert-{{message.tags}} text-center">{{message}}</div>
+{%endfor%}
+{%endif%}
+<!-- Regsitration form -->
+<div class="container   align-items-center d-flex justify-content-center">
+
+  <div class="mt-5 mb-5 align-items-center justify-content-center login-form pb-3  container">
+    <h3 class="p-3 text-center">Signup Form</h3>
+  <form method="POST" class=" mt-3 align-items-center justify-content-center " novalidate>
+    {% csrf_token %}
+    {% for f in fm%}
+    <span class="text-danger">{{f.errors}}</span>
+    <label>{{f.label}}</label><br>
+    {{f}} <br><br>
+    {%endfor%}
+    <span class="text-danger">{{up.phone_number.errors}}</span>
+    <label>{{up.phone_number.label}}</label><br>
+    {{up.phone_number}} <br><br>
+    <button class="btn btn-warning" name="registration">Create Account</button>
+  </form>
+  <br>
+  <small class="px-5 text-muted">Alreay have an account <a href="/login/"
+      style="text-decoration: none;">login</a></small>
+</div>
+</div
+{% endblock content %}

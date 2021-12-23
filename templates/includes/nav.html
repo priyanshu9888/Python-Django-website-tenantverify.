@@ -1,0 +1,21 @@
+<nav class="navi" id="mynavi">
+  <ul>
+  <a href="/" class="navbar-brand mr-5">
+    <img src="https://www.tenantverify.in/wp-content/uploads/2021/09/cropped-TV-Logo-R.png" height="80" alt="tenentverify">
+  </a>
+      {% comment %} <li class="logo"><a href="/">Tenant<span>Verify.</span></a></li> {% endcomment %}
+      <li class="items"><a href="/">Home</a></li>
+      <li class="items"><a href="/about">About</a></li>
+      <li class="items"><a href="/media">Media</a></li>
+      <li class="items"><a href="/contact">Contact</a></li>
+      <li class="items"><a href="/service">Service</a></li>
+      {% if user.is_authenticated %}
+          <li class="items"><a href="{% url 'users-profile' %}" class="nav-item nav-link">Profile</a></li>
+          <li class="items"><a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a></li>
+      {% else %}
+          <li class="items "><a href="/login">login</a></li>
+          <li class="items"   ><a href="/registration">Signup</a></li>
+      {% endif %}
+      <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+  </ul>
+</nav>

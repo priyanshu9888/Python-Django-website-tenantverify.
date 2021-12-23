@@ -1,32 +1,36 @@
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.conf.urls import url
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
-
-from home.admin import ApointmentAdmin
-
+from django.views.generic.base import TemplateView 
+# from home.admin import ApointmentAdmin
 from .models import Apointment
 from .models import Contact
-from .models import Tdata
-from django.contrib.auth import authenticate, login
-from django.conf import settings
-import http.client
-import random
+from .models import Tdata  
+from django.contrib import messages 
+from .forms import UserRegistrationForm,UserProfileForm
 from .models import Profile
+import requests 
+from django.contrib.auth.hashers import make_password
+import random
 from django.contrib.auth.models import User
-
-
-
-
-
 from django.contrib import messages
-
+from django.contrib.auth import authenticate, login 
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
 
 #         # Create your views here.
 
 
+def userprofile(request):
+   return render(request, 'users/index.html') 
+
 def index(request):
+   return render(request, 'home/index.html')
 
-   return render(request, 'index.html')
-
+def start(request):
+     return render(request, 'start/index.html')
 
 def apointment(request):
     if request.method == "POST":
@@ -37,7 +41,7 @@ def apointment(request):
         option=request.POST.get('option')
         apointment=Apointment(name=name,email=email, phone=phone,desc=desc,option=option)
         apointment.save()
-        messages.success(request, 'Apointmnet form submited successfully')        
+        messages.success(request, '	Thank you for contacting us, we will get back to you shortly.')        
         return redirect("apointment")
     return render(request,"apointment.html")
 
@@ -49,37 +53,41 @@ def contact(request):
         desc = request.POST.get('desc')
         contact=Contact(name=name,email=email, phone=phone,desc=desc)
         contact.save()
-        messages.success(request, 'Contact form submited successfully')        
-       
+        messages.success(request, 'Contact form submited successfully we will get back to you shortly.')        
         return redirect("contact")
-    return render(request,"contact.html")
-   
+    return render(request,"contact/index.html")
 
 def home(request):
-
     return render(request, 'index.html')
 
-
 def about(request):
-    return render(request, 'about.html')
-
+    return render(request, 'about/index.html')
 
 def cancel(request):
     return render(request, 'index.html')
 
-
 def service(request):
-    return render(request, 'service.html')
+    return render(request, 'service/index.html')
 
+def privacy(request):
+    return render(request,'privacy/index.html' )
 
+def termsandcondition(request):
+    return render(request,'terms/index.html')
 
+def disclaimer(request):
+    return render(request,'disclaimer/index.html')
 
 def media(request):
-    return render(request, 'media.html')
+    return render(request, 'media/index.html')
 
+def tdata(request):
+    return render (request, '/tdata.html')
 
 def tdata(request):
     if request.method == "POST":
+        tdata = Tdata(request.POST, request.FILES)
+        
         fullname = request.POST.get('fullname')
         alias = request.POST.get('alias')
         father = request.POST.get('father')
@@ -115,9 +123,10 @@ def tdata(request):
         pincode2 = request.POST.get('pincode2')
         police2 = request.POST.get('police2')
         period2 = request.POST.get('period2')
-        image = request.POST.get('image')
-        document = request.POST.get('document')
-
+        # image = request.POST.get(request.POST , request.FILES )
+        # document = request.POST.get(request.POST , request.FILES)
+        image=request.FILES ['image']
+        document=request.FILES ['document']
         tdata=Tdata(fullname=fullname,alias=alias, father=father,
         placeofbirth=placeofbirth,dateofbirth=dateofbirth,
         gender=gender,martial=martial,nationality=nationality,
@@ -132,99 +141,216 @@ def tdata(request):
         
         police2=police2,period2=period2,
         image=image,document=document)
+        # tdata = (request.POST, request.FILES)
         tdata.save()
         messages.success(request, ' form submited successfully')        
        
         return redirect("tdata")
     return render (request, 'tdata.html')
 
-#send otp through api call---------------------------------------------------------
-def send_otp(mobile , otp):
-    print("FUNCTION CALLED")
-    conn = http.client.HTTPSConnection("api.2factor")
-    authkey = settings.AUTH_KEY 
-    headers = { 'content-type': "application/json" }
-    url = " https://2factor.in/API/V1/{75b57500-13ea-11e9-9ee8-0200cd936042}/BAL/SMS   ="+otp+"&message="+"Your otp is "+otp +"&mobile="+mobile+"&authkey="+authkey+"&country=91"
-    conn.request("GET", url , headers=headers)
-    res = conn.getresponse()
-    data = res.read()
-    print(data)
-    return None
-#login attempt--------------------------------------------------------------------------------------------------
-def login_attempt(request):
-    if request.method == 'POST':
-        mobile = request.POST.get('mobile')
-        
-        user = Profile.objects.filter(mobile = mobile).first()
-        
-        if user is None:
-            context = {'message' : 'User not found' , 'class' : 'danger' }
-            return render(request,'login.html' , context)
-        
-        otp = str(random.randint(1000 , 9999))
-        user.otp = otp
-        user.save()
-        send_otp(mobile , otp)
-        request.session['mobile'] = mobile
-        return redirect('login_otp')        
-    return render(request,'login.html')
+def send_otp(number,message):
+    url = "https://www.fast2sms.com/dev/bulk"
+    # url=" https://2Factor.in"
+    api = "jiSP7ZGLtflMTgJ85W6v4YpXhnCRzcQky2ueaIVFr0NBOdUKbsqiDOKjhJy5GxloUHes0zfaBwSc742A"
+    querystring = {"authorization":api,"sender_id":"tnv","message":message,"language":"english","route":"p","numbers":number}
+    headers = {
+        'cache-control': "no-cache"
+    }
+    return requests.request("GET", url, headers=headers, params=querystring)
 
-#login otp------------------------------------------------------------------------------------------------------
-def login_otp(request):
-    mobile = request.session['mobile']
-    context = {'mobile':mobile}
-    if request.method == 'POST':
-        otp = request.POST.get('otp')
-        profile = Profile.objects.filter(mobile=mobile).first()
+def Registration(request):
+    if request.method == "POST":
+        fm = UserRegistrationForm(request.POST)
+        up = UserProfileForm(request.POST)
+        if fm.is_valid() and up.is_valid():
+            e = fm.cleaned_data['email']
+            u = fm.cleaned_data['username']
+            p = fm.cleaned_data['password1']
+            request.session['email'] = e
+            request.session['username'] = u
+            request.session['password'] = p
+            p_number = up.cleaned_data['phone_number']
+            request.session['number'] = p_number
+            otp = random.randint(1000,9999)
+            request.session['otp'] = otp
+            message = f'Use OTP  {otp} to login to your Account Tenantvrify.in does not ask for OTP or Contact number to be shared with anyone including Tenantverify Personnel. '
+            send_otp(p_number,message)
+        return redirect('/registration/otp/')
+    else:
+        fm  = UserRegistrationForm()
+        up = UserProfileForm()
+    context = {'fm':fm,'up':up}
+    return render(request,'login/signup.html',context)
+
+
+def otpRegistration(request):
+    if request.method == "POST":
+        u_otp = request.POST['otp']
+        otp = request.session.get('otp')
+        user = request.session['username']
+        hash_pwd = make_password(request.session.get('password'))
+        p_number = request.session.get('number')
+        email_address = request.session.get('email') 
+
+        if int(u_otp) == otp:
+            User.objects.create(
+                            username = user,
+                            email=email_address,
+                            password=hash_pwd
+            )
+            user_instance = User.objects.get(username=user)
+            Profile.objects.create(
+                            user = user_instance,phone_number=p_number
+            )
+            request.session.delete('otp')
+            request.session.delete('user')
+            request.session.delete('email')
+            request.session.delete('password')
+            request.session.delete('phone_number')
+
+            messages.success(request,'Registration Successfully Done !!')
+
+            return redirect('/login/')
         
-        if otp == profile.otp:
-            user = User.objects.get(id = profile.user.id)
-            login(request , user)
-            return redirect('tdata')
         else:
-            context = {'message' : 'Wrong OTP' , 'class' : 'danger','mobile':mobile }
-            return render(request,'login_otp.html' , context)
-    
-    return render(request,'login_otp.html' , context)
+            messages.error(request,'Wrong OTP')
 
-#register------------------------------------------------------------------------------------------------------
-def register(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        name = request.POST.get('name')
-        mobile = request.POST.get('mobile')
-        
-        check_user = User.objects.filter(email = email).first()
-        check_profile = Profile.objects.filter(mobile = mobile).first()
-        
-        if check_user or check_profile:
-            context = {'message' : 'User already exists' , 'class' : 'danger' }
-            return render(request,'register.html' , context)
-            
-        user = User(email = email , first_name = name)
-        user.save()
-        otp = str(random.randint(1000 , 9999))
-        profile = Profile(user = user , mobile=mobile , otp = otp) 
-        profile.save()
-        send_otp(mobile, otp)
-        request.session['mobile'] = mobile
-        return redirect('otp')
-    return render(request,'register.html')
 
-def otp(request):
-    mobile = request.session['mobile']
-    context = {'mobile':mobile}
-    if request.method == 'POST':
-        otp = request.POST.get('otp')
-        profile = Profile.objects.filter(mobile=mobile).first()
-        
-        if otp == profile.otp:
-            return redirect('tdata')
+    return render(request,'login/signup-otp.html')
+
+
+def userLogin(request):
+    template = "login/signin.html"
+    try :
+        if request.session.get('failed') > 2:
+            return HttpResponse('<h1> You have to wait for 5 minutes to login again</h1>')
+    except:
+        request.session['failed'] = 0
+        request.session.set_expiry(100)
+
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            if user.is_active:
+                django_login(request, user)
+                return redirect("start")
+            else:
+                request.session['username'] = username
+                request.session['password'] = password
+                u = User.objects.get(username=username)
+                p = Profile.objects.get(user=u)
+                p_number = p.phone_number
+                otp = random.randint(1000,9999)
+                request.session['login_otp'] = otp
+                message = f'your Tenantverify.in otp is {otp}'
+                send_otp(p_number,message)
+                return redirect('/login/otp/')
         else:
-            print('Wrong')
-            
-            context = {'message' : 'Wrong OTP' , 'class' : 'danger','mobile':mobile }
-            return render(request,'otp.html' , context)
-            
-        
-    return render(request,'otp.html' , context)
+            messages.error(request,'username or password is wrong')
+        # return render(request,'login.html')
+    # elif request.method == "GET":
+    #     print("!!!!!! {}".format(request))
+    #     if request.session is not None:
+    #         username = request.session['username']
+    #         password = request.session['password']
+    #         user = authenticate(request,username=username,password=password)
+    #         if user is not None:
+    #             django_login(request, user)
+    #             return redirect("start")
+
+    return render(request,template)
+
+
+def otpLogin(request):
+    if request.method == "POST":
+        username = request.session['username']
+        password = request.session['password']
+        otp = request.session.get('login_otp')
+        u_otp = request.POST['otp']
+        if int(u_otp) == otp:
+            user = authenticate(request,username=username,password=password)
+            if user is not None:
+                login(request,user)
+                request.session.delete('login_otp')
+                messages.success(request,'login successfully')
+                return redirect('start.html')
+        else:
+            messages.error(request,'Wrong OTP')
+    return render(request,'login/login-otp.html')
+
+def home(request):
+    if request.method == "POST":
+        otp = random.randint(1000,9999)
+        request.session['email_otp'] = otp
+        message = f'your otp is {otp}'
+        user_email = request.user.email
+
+        send_mail(
+            'Email Verification OTP',
+            message,
+            settings.EMAIL_HOST_USER,
+            [user_email],
+            fail_silently=False,
+        )
+        return redirect('/email-verify/')
+
+    return render(request,'start.html')
+
+def email_verification(request):
+    if request.method == "POST":
+        u_otp = request.POST['otp']
+        otp = request.session['email_otp']
+        if int(u_otp) == otp:
+           p =  Profile.objects.get(user=request.user)
+           p.email_verified = True
+           p.save()
+           messages.success(request,f'Your email {request.user.email} is verified now')
+           return redirect('/start.html')
+        else:
+            messages.error(request,'Wrong OTP')
+
+
+    return render(request,'email-verified.html')
+
+def forget_password(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        if User.objects.filter(email=email).exists():
+            uid = User.objects.get(email=email)
+            url = f'http://127.0.0.1:8000/change-password/{uid.profile.uuid}'
+            send_mail(
+            'Reset Password',
+            url,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+            return redirect('/forget-password/done/')
+        else:
+            messages.error(request,'email address is not exist')
+    return render(request,'login/forget-password.html')
+
+def change_password(request,uid):
+    try:
+        if Profile.objects.filter(uuid = uid).exists():
+            if request.method == "POST":
+                pass1 = 'password1'in request.POST and request.POST['password1']
+                pass2 =  'password2'in request.POST and request.POST['password2']
+                if pass1 == pass2:
+                    p = Profile.objects.get(uuid=uid)
+                    u = p.user
+                    user = User.objects.get(username=u)
+                    user.password = make_password(pass1)
+                    user.save()
+                    messages.success(request,'Password has been reset successfully')
+                    return redirect('/login/')
+                else:
+                    return HttpResponse('Two Password did not match')
+                
+        else:
+            return HttpResponse('Wrong URL')
+    except:
+        return HttpResponse('Wrong URL')
+    return render(request,'change-password.html')

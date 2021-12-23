@@ -1,0 +1,49 @@
+/*hero banner-----*/
+.hero-bannerr {
+    background-color: #2e2a2a !important;
+    background-image: url(https://tenantverify.in/wp-content/uploads/2020/12/Circles01.png);
+  }
+  
+  .hd a{
+    color: rgb(248, 246, 246);
+    font-size: 35px;
+    font-weight: 600;
+  }
+  
+  .hd a span{
+    color: rgb(243, 182, 13);
+    transition: all 0.3s ease;
+  }
+  .hero-banner h1 {
+    font-size: 48px;
+  }
+  .text-secondary my-5 p{
+    color: black;
+  }
+  /* .hero-banner .btn {
+    position: relative;
+    overflow: hidden;
+  } */
+  .hero-bannerr .btn-primary {
+    color: #1a1a91;
+  }
+  .hero-banner .btn::before {
+    content: "";
+    background: #ed5561;
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -ms-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+    transition: all 0.5s ease-in-out 0s;
+  }
+  .hero-banner .btn:hover:before {
+    width: 100%;
+  }
+  
+  /*hero banner end ---*/

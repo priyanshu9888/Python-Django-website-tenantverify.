@@ -1,343 +1,244 @@
-<!DOCTYPE html>
-<!-- Created By Tannetverify -->
+{% extends 'layouts/base.html' %}
+{% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Tenantverify</title>
-    {% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<div class="border border-dark mt-3  ">
+    <h4 class="text-center text-success"> Tenant / Domestic Servants / Housekeeping / Drivers / Other Employees
+        Details </h4>
 
-<body>
-    <nav>
-        <ul>
-            <li class="logo"><a href="#">Tenant<span>Verify.</span></a></li>
-            <li class="items"><a href="/">Home</a></li>
-            <li class="items"><a href="/about">About</a></li>
-            <li class="items"><a href="/media">Media</a></li>
-            <li class="items"><a href="/contact">Contact</a></li>
-            <li class="items"><a href="/service">service</a></li>
-            {% comment %} <li class="items"><a href="/login">login</a></li> {% endcomment %}
-            {% comment %} <li class="items"><a href="/signup">Signup</a></li> {% endcomment %}
 
-            <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
-        </ul>
-    </nav>
+</div>
+
+
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><p class="alert alert-success" >{{ message }}</p></li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+<form action="" method="POST" class="needs-validation mx-5"   enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="form-row mt-5 ">
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom01">Full Name</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Full name" name="fullname"
+                required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom02">Aliases</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Aliases" name="alias"
+                required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom02">Father / Husband Name</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Father / husband"
+                name="father" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom02">Place of birth</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="place of birth"
+                name="placeofbirth" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+    </div>
+    <div class="form-row  ">
+
+
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom03">Date of Birth</label>
+
+            <input type="date"  name="dateofbirth"class="form-control" id="validationCustom03" placeholder="Enter Date" required>
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid date of birth.
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom03">Gender</label>
+
+            <select class="form-select" aria-label="Default select example" name="gender" required>
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid gender.
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom03">Martial Status</label>
+            <select class="form-select" aria-label="Default select example" name="martial" required>
+                <option value="Married">Married</option>
+                <option value="Unmarried">Unmarried</option>
+            </select>
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid martial status.
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="validationCustom03">Nationality</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="ex-india"
+                name="nationality" required>
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid nationality.
+        </div>
+    </div>
+        <div  class=" col-md-6   pl-2 ">
+           
+            <label for="validationCustom03">Language</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Hindi, English, ..."
+                name="language" required>
+
+
+        </div>
+        <div class="invalid-feedback">
+            Please provide a valid nationality.
+    </div>
+
+    <div class="form-row mt-4 ">
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Contact Number </label>
+            <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+                placeholder="Enter your no" name="contactnum" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Alternate Number</label>
+            <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+                placeholder="Enter your no" name="contactnum2" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Aadhar Number</label>
+            <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+                placeholder="344xxxxxxxx56" name="adhar" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Aadhar Linked Phone no</label>
+            <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+                placeholder="xx-xx-xx-xx-xx" name="Linkno" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Occupation</label>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Occupation"
+                name="Occupation" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Name of Company / Society</label>
+            <input type="text" class="form-control" id="validationCustom02" name="nameofcompany" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+
+    </div>
     <div class="border border-dark mt-3  ">
-        <h4 class="text-center text-success"> Tenant / Domestic Servants / Housekeeping / Drivers / Other Employees
-            Details </h4>
+        <h4 class="text-center text-success"> Owner Details</h4>
 
 
     </div>
-
-
-      {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><p class="alert alert-success" >{{ message }}</p></li>
-                {% endfor %}
-                </ul>
-                {% endif %}
-    <form action="" method="POST" class="needs-validation mx-5" novalidate>
-
-    {% csrf_token %}
-        <div class="form-row mt-5 ">
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom01">Full Name</label>
-                <input type="text" class="form-control" id="validationCustom01" placeholder="Full name" name="fullname"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom02">Aliases</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Aliases" name="alias"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom02">Father / Husband Name</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Father / husband"
-                    name="father" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom02">Place of birth</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="place of birth"
-                    name="placeofbirth" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
-        <div class="form-row  ">
-
-
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom03">Date of Birth</label>
-
-                <input type="date"  name="dateofbirth"class="form-control" id="validationCustom03" placeholder="Enter Date" required>
-            </div>
-            <div class="invalid-feedback">
-                Please provide a valid date of birth.
-            </div>
-
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom03">Gender</label>
-
-                <select class="form-select" aria-label="Default select example" name="gender" required>
-                    <option value="male">male</option>
-                    <option value="female">female</option>
-                </select>
-            </div>
-            <div class="invalid-feedback">
-                Please provide a valid gender.
-            </div>
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom03">Martial Status</label>
-                <select class="form-select" aria-label="Default select example" name="martial" required>
-                    <option value="Married">Married</option>
-                    <option value="Unmarried">Unmarried</option>
-                </select>
-            </div>
-            <div class="invalid-feedback">
-                Please provide a valid martial status.
-            </div>
-            <div class="col-md-3 mb-2">
-                <label for="validationCustom03">Nationality</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="ex-india"
-                    name="nationality" required>
-            </div>
-            <div class="invalid-feedback">
-                Please provide a valid nationality.
-            </div>
-        </div>
-            <div  class=" col-md-6   pl-2 ">
-               
-                <label for="validationCustom03">Language</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Hindi, English, ..."
-                    name="language" required>
-
-
-            </div>
-            <div class="invalid-feedback">
-                Please provide a valid nationality.
-        </div>
-
-        <div class="form-row mt-4 ">
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Contact Number </label>
-                <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="Enter your no" name="contactnum" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Alternate Number</label>
-                <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="Enter your no" name="contactnum2" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Aadhar Number</label>
-                <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="344xxxxxxxx56" name="adhar" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Aadhar Linked Phone no</label>
-                <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="xx-xx-xx-xx-xx" name="Linkno" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Occupation</label>
-                <input type="text" class="form-control" id="validationCustom02" placeholder="Enter Occupation"
-                    name="Occupation" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Name of Company / Society</label>
-                <input type="text" class="form-control" id="validationCustom02" name="nameofcompany" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-
-        </div>
-        <div class="border border-dark mt-3  ">
-            <h4 class="text-center text-success"> Owner Details</h4>
-
-
-        </div>
-        <div class="form-row mt-4 ">
-
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Name Of Owner / Employer </label>
-                <input type="text" class="form-control" id="validationCustom02" name="ownername"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Mobile Number </label>
-                <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="Enter your no" name="ownerno" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Society / Company </label>
-                <input type="text" class="form-control" id="validationCustom02" name="socityname" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Address</label>
-                <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="address"
-                    required></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
-        <div class="border border-dark mt-3  ">
-            <h4 class="text-center text-success"> Details Of People Staying With at Present Address</h4>
-    
-    
-        </div>
-
-        <div class="form-row mt-4 ">
-            <div class="col-md-4">
-                <label for="validationCustom02">Name </label>
-                <input type="text"class="form-control" id="validationCustom02"
-                    placeholder="Enter name " name="namestay" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label for="validationCustom02">Relationship</label>
-                <input type="text"  class="form-control" id="validationCustom02"
-                    placeholder="Enter your relationship " name="relationship" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label for="validationCustom02">Number</label>
-                <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-                    placeholder="xx-xx-xx-xx-xx" name="numb" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            </div>
-
-            <div class="border border-dark mt-3  ">
-                <h4 class="text-center text-success"> Present Address Details</h4>
-        </div>
-        <div class="form-row mt-4 ">
+    <div class="form-row mt-4 ">
 
         <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Name Of Owner / Employer </label>
+            <input type="text" class="form-control" id="validationCustom02" name="ownername"
+                required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Mobile Number </label>
+            <input type="tel" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+                placeholder="Enter your no" name="ownerno" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <label for="validationCustom02">Society / Company </label>
+            <input type="text" class="form-control" id="validationCustom02" name="socityname" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-6 mt-2">
             <label for="validationCustom02">Address</label>
-            <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="address2"
+            <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="address"
                 required></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
-        <div class="col-md-6 mt-2">
-            <label for="validationCustom02">Village / City</label>
-            <input type="text" class="form-control" id="validationCustom02"  name="address3"
-                required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-       </div>
-        <div class="form-row mt-4 ">
+    </div>
+    <div class="border border-dark mt-3  ">
+        <h4 class="text-center text-success"> Details Of People Staying With at Present Address</h4>
 
-        <div class="col-md-6 mt-2">
-            <label for="validationCustom02">State</label>
-            <input type="text" class="form-control" id="validationCustom02"  name="state"
-                required>
+
+    </div>
+
+    <div class="form-row mt-4 ">
+        <div class="col-md-4">
+            <label for="validationCustom02">Name </label>
+            <input type="text"class="form-control" id="validationCustom02"
+                placeholder="Enter name " name="namestay" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
-        <div class="col-md-6 mt-2">
-            <label for="validationCustom02">Pincode</label>
+        <div class="col-md-4">
+            <label for="validationCustom02">Relationship</label>
+            <input type="text"  class="form-control" id="validationCustom02"
+                placeholder="Enter your relationship " name="relationship" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom02">Number</label>
             <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-            placeholder="xx-xx-xx" name="pincode" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-        </div>
-        </div>
-
-        <div class="form-row mt-4 ">
-
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Police Station</label>
-                <input type="text" class="form-control" id="validationCustom02"  name="police"
-                    required></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
+                placeholder="xx-xx-xx-xx-xx" name="numb" required>
+            <div class="valid-feedback">
+                Looks good!
             </div>
-            <div class="col-md-6 mt-2">
-                <label for="validationCustom02">Period of Stay</label>
-                <input type="text" class="form-control" id="validationCustom02"  name="period"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-           </div>
-
-           <label  class="mt-3"
-           for="validationCustom02"> Present Address Same as Permanent Address </label>
-
-
-            <select class="form-select" aria-label="Default select example" name="presentsameperma" required>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
-            </select>
         </div>
-         
-           <div class="border border-dark mt-3  ">
-            <h4 class="text-center text-success"> Permanent Address Details</h4>
+        </div>
+
+        <div class="border border-dark mt-3  ">
+            <h4 class="text-center text-success"> Present Address Details</h4>
     </div>
     <div class="form-row mt-4 ">
 
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">Address</label>
-        <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="peraddress"
+        <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="address2"
             required></textarea>
         <div class="valid-feedback">
             Looks good!
@@ -345,7 +246,7 @@
     </div>
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">Village / City</label>
-        <input type="text" class="form-control" id="validationCustom02"  name="pervillcity"
+        <input type="text" class="form-control" id="validationCustom02"  name="address3"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -356,7 +257,7 @@
 
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">State</label>
-        <input type="text" class="form-control" id="validationCustom02"  name="state2"
+        <input type="text" class="form-control" id="validationCustom02"  name="state"
             required>
         <div class="valid-feedback">
             Looks good!
@@ -365,7 +266,7 @@
     <div class="col-md-6 mt-2">
         <label for="validationCustom02">Pincode</label>
         <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
-        placeholder="xx-xx-xx" name="pincode2" required>
+        placeholder="xx-xx-xx" name="pincode" required>
     <div class="valid-feedback">
         Looks good!
     </div>
@@ -376,7 +277,7 @@
 
         <div class="col-md-6 mt-2">
             <label for="validationCustom02">Police Station</label>
-            <input type="text" class="form-control" id="validationCustom02"  name="police2"
+            <input type="text" class="form-control" id="validationCustom02"  name="police"
                 required></textarea>
             <div class="valid-feedback">
                 Looks good!
@@ -384,38 +285,110 @@
         </div>
         <div class="col-md-6 mt-2">
             <label for="validationCustom02">Period of Stay</label>
-            <input type="text" class="form-control" id="validationCustom02"  name="period2"
+            <input type="text" class="form-control" id="validationCustom02"  name="period"
                 required>
             <div class="valid-feedback">
                 Looks good!
             </div>
         </div>
        </div>
+
+       <label  class="mt-3"
+       for="validationCustom02"> Present Address Same as Permanent Address </label>
+
+       <div class="form-row mt-4 ">
+
+        <select class="form-select" aria-label="Default select example" name="presentsameperma" required>
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+        </select>
     </div>
+     
+       <div class="border border-dark mt-3  ">
+        <h4 class="text-center text-success"> Permanent Address Details</h4>
 </div>
 <div class="form-row mt-4 ">
 
-<div class="input-group col-md-6 mt-2">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroupFileAddon01"> Image Upload</span>
+<div class="col-md-6 mt-2">
+    <label for="validationCustom02">Address</label>
+    <textarea class="form-control" id="validationCustom02" placeholder="Enter your Address" name="peraddress"
+        required></textarea>
+    <div class="valid-feedback">
+        Looks good!
     </div>
-    <div class="custom-file">
-      <input type="file" name="image" class="custom-file-input" id="inputGroupFile01"
-        aria-describedby="inputGroupFileAddon01">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+</div>
+<div class="col-md-6 mt-2">
+    <label for="validationCustom02">Village / City</label>
+    <input type="text" class="form-control" id="validationCustom02"  name="pervillcity"
+        required>
+    <div class="valid-feedback">
+        Looks good!
     </div>
-  </div>
-  <div class="input-group col-md-6 mt-2">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroupFileAddon01"> Document Upload</span>
-    </div>
-    <div class="custom-file">
-      <input type="file" name="document" class="custom-file-input" id="inputGroupFile01"
-        aria-describedby="inputGroupFileAddon01">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
-  </div>
+</div>
+</div>
+<div class="form-row mt-4 ">
 
+<div class="col-md-6 mt-2">
+    <label for="validationCustom02">State</label>
+    <input type="text" class="form-control" id="validationCustom02"  name="state2"
+        required>
+    <div class="valid-feedback">
+        Looks good!
+    </div>
+</div>
+<div class="col-md-6 mt-2">
+    <label for="validationCustom02">Pincode</label>
+    <input type="text" onkeypress="return isNumberKey(event)" class="form-control" id="validationCustom02"
+    placeholder="xx-xx-xx" name="pincode2" required>
+<div class="valid-feedback">
+    Looks good!
+</div>
+</div>
+</div>
+
+<div class="form-row mt-4 ">
+
+    <div class="col-md-6 mt-2">
+        <label for="validationCustom02">Police Station</label>
+        <input type="text" class="form-control" id="validationCustom02"  name="police2"
+            required></textarea>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="col-md-6 mt-2">
+        <label for="validationCustom02">Period of Stay</label>
+        <input type="text" class="form-control" id="validationCustom02"  name="period2"
+            required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+   </div>
+</div>
+</div>
+<div class="form-row mt-4 ">
+    <div class="form-row mt-4 ">
+
+<div class="input-group col-md-6 mt-2">
+<div class="input-group-prepend">
+  <span class="input-group-text" id="inputGroupFileAddon01"> Image Upload</span>
+</div>
+<div class="custom-file">
+  <input type="file" name="image" class="custom-file-input" id="inputGroupFile01"
+    aria-describedby="inputGroupFileAddon01" accept=".jpeg, .jpg">
+  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+</div>
+</div>
+<div class="input-group col-md-6 mt-2">
+<div class="input-group-prepend">
+  <span class="input-group-text" id="inputGroupFileAddon01"> Document Upload</span>
+</div>
+<div class="custom-file">
+  <input type="file" name="document" class="custom-file-input" id="inputGroupFile01"
+    aria-describedby="inputGroupFileAddon01" accept=".doc, .docx, .pdf, .txt" >
+  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+</div>
 </div>
 
 
@@ -424,159 +397,43 @@
 
 
 
-        <button class="btn btn-primary mt-4" type="submit">Submit form</button>
+    <button class="btn btn-primary mt-4" type="submit">Submit form</button>
 
-    </form>
+</form>
+</div>
+</div>
 <h4 class="text-center mt-4 text-danger"> Disclaimer: If uploded documents mismatch with the entered data, Department may reject your application. Thanking you</h4>
 <h4 class="text-center mt-4 text-danger">ಹಕ್ಕು ನಿರಾಕರಣೆ: ಅಪ್‌ಲೋಡ್ ಮಾಡಲಾದ ದಾಖಲೆಗಳು ನಮೂದಿಸಿದ ಡೇಟಾದೊಂದಿಗೆ ಹೊಂದಿಕೆಯಾಗದಿದ್ದರೆ, ಇಲಾಖೆಯು ನಿಮ್ಮ ಅರ್ಜಿಯನ್ನು ತಿರಸ್ಕರಿಸಬಹುದು. ಧನ್ಯವಾದಗಳು</h4>
 
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-    </script>
-    <script>
-        function isNumberKey(evt) {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return false;
-            return true;
-        }
-    </script>
-    
-    </div>
-
-    <section class="hero-banner bg-light py-5">
-        <div class="container">
-            <div class="row row align-items-center">
-                <div class="col-lg-5 offset-lg-1 order-lg-1">
-                    <img src="https://www.tenantverify.in/wp-content/uploads/2020/12/Group-11442.png" class="img-fluid"
-                        alt="Web Development">
-                </div>
-                <div class="col-lg-6">
-
-                    <h1> Get <strong> Tenantverify.in</strong> App Now</h1>
-                    <p class="lead text-secondary my-5">We help Societies, Landlords, Property Managers and Employers to
-                        verify their Tenants, PGs, Domestic Helps, Housekeeping, Gardeners, Security Guards, Cooks,
-                        Drivers and Employees of all other sector to achieve a greater sense of confidence when allowing
-                        them to rent their place or employ them.
-                        .</p>
-                    <div class="flex social-btns">
-                        <a class="app-btn blu flex vert"
-                            href="https://apps.apple.com/in/app/tenantverify-in/id1546610050">
-                            <i class="fab fa-apple"></i>
-                            <p><br /> <span class="big-txt">App Store</span></p>
-                        </a>
-
-                        <a class="app-btn blu flex vert"
-                            href="https://play.google.com/store/apps/details?id=com.tenantverify.tenantverify">
-                            <i class="fab fa-google-play"></i>
-                            <p><br /> <span class="big-txt">Google Play</span></p>
-                        </a>
-
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- footer section start -->
-    <footer>
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="address">
-                            <h4>Skanda Integrated Services Pvt Ltd.</h4>
-                            <p class="mb-4 mt-4">CIN : U74110KA2019PTC125486</p>
-                            <p class="mb-0 mt-0">No. 27/3, 006, Buildwell Homes, Borewell Road, Nallurahalli, Whitefield
-                                Bengaluru, Karnataka,
-
-                            </p>
-                            <p><strong>India - </strong> 560 066</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-sm-6 footer-menus">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><i class="fas fa-check"></i> <a href="#">Home</a></li>
-                            <li><i class="fas fa-check"></i> <a href="#">About us</a></li>
-                            <li><i class="fas fa-check"></i> <a href="#">Services</a></li>
-                            <li><i class="fas fa-check"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="fas fa-check"></i> <a href="#">Privacy policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 footer-menus">
-                        <h4>Our Services</h4>
-                        <ul>
-                            <p><strong>India - </strong> 560 066</p>
-
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-4 col-sm-6 newsletter">
-                        <h4>Contact Us </h4>
-                        <p><strong>Whatsapp: </strong> +91 6363827088</p>
-                        <p><strong>Call: </strong> +91 80 49564156 / 41643626 </p>
-                        <p><strong>Email: </strong>hello@tenantverify.in</p>
-
-                        <div class="social-links mt-3">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="text-center mb-2">&copy; Copyright <strong>Tanentverify</strong>. All Rights Reserved
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script>
-        $(document).ready(function () {
-            $('.btn').click(function () {
-                $('.items').toggleClass("show");
-                $('ul li').toggleClass("hide");
-            });
-        });
-    </script>
-
 <script>
-   
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
 </script>
 
-</body>
-
-</html>
+</div>
+{% endblock content %}

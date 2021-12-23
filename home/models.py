@@ -1,5 +1,10 @@
+# from django.conf import UserSettingsHolder
 from django.db import models
 from django.db.models.base import Model
+# from django.contrib.auth.models import user
+from PIL import Image
+from django.core.validators import RegexValidator
+import uuid
 from django.contrib.auth.models import User
 
 
@@ -78,13 +83,59 @@ class Tdata(models.Model):
 
     police2 = models.CharField(max_length=100)
     period2 = models.CharField(max_length=10)
-    image = models.ImageField(upload_to="formimage")
-    document = models.FileField(upload_to="file")
+    image = models.ImageField(upload_to='formimage/')
+    document = models.FileField(upload_to='file/')
+
         	
 def __str__(self):
         return self.name
 
+
+
+# Create your models here.
+
+phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', 
+                                message = "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+
 class Profile(models.Model):
-    user = models.OneToOneField(User ,on_delete=models.CASCADE)
-    mobile = models.CharField(max_length=20)
-    otp = models.CharField(max_length=6)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=17,validators=[phone_regex],unique=True)
+    email_verified = models.BooleanField(default=False)
+    uuid = models.UUIDField(default=uuid.uuid4,editable=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Extending User Model Using a One-To-One Link
+# class Profile(models.Model):
+#     user = models.OneToOneField(UserSettingsHolder, on_delete=models.CASCADE)
+
+#     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+#     bio = models.TextField()
+
+#     def __str__(self):
+#         return self.user.username
+
+#     # resizing images
+#     def save(self, *args, **kwargs):
+#         super().save()
+
+        # img = Image.open(self.avatar.path)
+
+        # if img.height > 100 or img.width > 100:
+        #     new_img = (100, 100)
+        #     img.thumbnail(new_img)
+        #     img.save(self.avatar.path)

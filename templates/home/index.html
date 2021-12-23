@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+{% block title %} Home{% endblock %} 
+{% block banner %}
+  <!-- Contact-Us Section -->
+  {% include './home-banner.html' %}
+  <!-- Mobile Section End-->
+{% endblock banner %}
+{% block content %}
+  <!-- Tenantverify Section -->
+  {% include './home-tenantverify.html' %}
+  <!-- Tenantverify End-->
+  <!-- About Section -->
+  {% include './home-about.html' %}
+  <!-- About Section End-->
+  <!-- About Section -->
+  {% include './home-service.html' %}
+  <!-- About Section End-->
+  <!-- About Section -->
+  {% include './home-isPolice.html' %}
+  <!-- About Section End-->
+  <!-- Contact-Us Section -->
+  {% include './home-contactus.html' %}
+  <!-- Mobile Section End-->
+  {% include './home-slider.html' %}
+
+  <!--what tenantverify do End-->
+{% endblock content %}
