@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Created By Tenantverify -->
+<head>
+  {% include 'includes/header.html' %}
+  <title>Tenantverify - {% block title %} {% endblock %} </title>
+  <meta name="title" content="Tenantverify | Background Verification Company in Bangalore">
+<meta name="description" content="We help Societies, Landlords, Property Managers and Employers to verify the background of their Tenants, PGs, Domestic helps, Housekeeping, Gardeners, Security Guards, Cooks, Drivers and Employees of all other sector to achieve a greater sense of confidence when allowing them to rent their place or employ them.">
+<meta name="keywords" content="Societies, Landlords, Property Managers and Employers to verify the background of their Tenants, PGs, Domestic helps, Housekeeping, Gardeners, Security Guards, Cooks, Drivers">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="author" content="priyanshu-singh">
+
+</head>
+<body>
+    <!-------navbar includer-->
+    {% include 'includes/naver.html' %}
+    <!-------navbar end -->
+  <div class="main">
+    <!-- Hero Banner Section -->
+
+    <!-- Hero Banner Section -->
+    {% block content %}{% endblock content %}
+    <!-- Hero Section -->
+
+    <!-- Footer Section End-->
+    {% block javascript %}
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function() {
+          sidebar.classList.toggle("active");
+          if(sidebar.classList.contains("active")){
+          sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+        }else
+          sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+
+   
+     
+    {% endblock javascript %}
+  </div>
+</body>
+</html>

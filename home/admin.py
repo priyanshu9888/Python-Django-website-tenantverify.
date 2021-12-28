@@ -22,7 +22,7 @@ class TdataAdmin(ImportExportModelAdmin ,admin.ModelAdmin ):
      'Linkno','Occupation','nameofcompany','ownername','ownerno','socityname',
      'address','namestay','relationship','numb','address2','address3','state',
      'pincode','police','period','presentsameperma','peraddress','pervillcity','state2','pincode2',
-     'police2','period2','image','document',)
+     'police2','period2','image1','image2','image3','image4',)
 admin.site.register( Tdata, TdataAdmin)
 
 @admin.register(Profile)

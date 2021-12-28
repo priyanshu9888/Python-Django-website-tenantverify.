@@ -10,7 +10,7 @@
       <li class="items"><a href="/contact">Contact</a></li>
       <li class="items"><a href="/service">Service</a></li>
       {% if user.is_authenticated %}
-          <li class="items"><a href="{% url 'users-profile' %}" class="nav-item nav-link">Profile</a></li>
+          <li class="items"><a href="{% url 'users-profile' %}" class="nav-item nav-link">Dashboard</a></li>
           <li class="items"><a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a></li>
       {% else %}
           <li class="items "><a href="/login">login</a></li>

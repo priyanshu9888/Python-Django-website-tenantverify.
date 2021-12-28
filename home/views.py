@@ -86,8 +86,6 @@ def tdata(request):
 
 def tdata(request):
     if request.method == "POST":
-        tdata = Tdata(request.POST, request.FILES)
-        
         fullname = request.POST.get('fullname')
         alias = request.POST.get('alias')
         father = request.POST.get('father')
@@ -123,10 +121,14 @@ def tdata(request):
         pincode2 = request.POST.get('pincode2')
         police2 = request.POST.get('police2')
         period2 = request.POST.get('period2')
-        # image = request.POST.get(request.POST , request.FILES )
-        # document = request.POST.get(request.POST , request.FILES)
-        image=request.FILES ['image']
-        document=request.FILES ['document']
+        image1=request.FILES ['image1']
+        image2=request.FILES ['image2']
+
+        image3=request.FILES ['image3']
+        image4=request.FILES ['image4']
+
+        # document=request.FILES ['document']
+
         tdata=Tdata(fullname=fullname,alias=alias, father=father,
         placeofbirth=placeofbirth,dateofbirth=dateofbirth,
         gender=gender,martial=martial,nationality=nationality,
@@ -140,8 +142,9 @@ def tdata(request):
         peraddress=peraddress,pervillcity=pervillcity,state2=state2,pincode2=pincode2,
         
         police2=police2,period2=period2,
-        image=image,document=document)
+        image1=image1,image2=image2,image3=image3,image4=image4,)
         # tdata = (request.POST, request.FILES)
+       
         tdata.save()
         messages.success(request, ' form submited successfully')        
        
@@ -151,8 +154,8 @@ def tdata(request):
 def send_otp(number,message):
     url = "https://www.fast2sms.com/dev/bulk"
     # url=" https://2Factor.in"
-    api = "jiSP7ZGLtflMTgJ85W6v4YpXhnCRzcQky2ueaIVFr0NBOdUKbsqiDOKjhJy5GxloUHes0zfaBwSc742A"
-    querystring = {"authorization":api,"sender_id":"tnv","message":message,"language":"english","route":"p","numbers":number}
+    api = "JUcNMR548eW6MI1lzvIEHyRVmJMxVzl8glD8TpS1ovC39BEKLcB44CZr8k1R"
+    querystring = {"authorization":api,"sender_id":"FTWSMS","message":message,"language":"english","route":"p","numbers":number}
     headers = {
         'cache-control': "no-cache"
     }
@@ -173,7 +176,7 @@ def Registration(request):
             request.session['number'] = p_number
             otp = random.randint(1000,9999)
             request.session['otp'] = otp
-            message = f'Use OTP  {otp} to login to your Account Tenantvrify.in does not ask for OTP or Contact number to be shared with anyone including Tenantverify Personnel. '
+            message = f'Use OTP{otp} to login to your Account Tenantvrify.in does not ask for OTP or Contact number to be shared with anyone including Tenantverify Personnel. '
             send_otp(p_number,message)
         return redirect('/registration/otp/')
     else:
@@ -226,7 +229,7 @@ def userLogin(request):
             return HttpResponse('<h1> You have to wait for 5 minutes to login again</h1>')
     except:
         request.session['failed'] = 0
-        request.session.set_expiry(100)
+        request.session.set_expiry(1000)
 
     if request.method == "POST":
         username = request.POST['username']

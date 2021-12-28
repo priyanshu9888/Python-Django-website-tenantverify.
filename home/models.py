@@ -83,8 +83,13 @@ class Tdata(models.Model):
 
     police2 = models.CharField(max_length=100)
     period2 = models.CharField(max_length=10)
-    image = models.ImageField(upload_to='formimage/')
-    document = models.FileField(upload_to='file/')
+    image1 = models.ImageField(upload_to='formimage/')
+    image2 = models.ImageField(upload_to='Aadhaarfront/')
+    image3 = models.ImageField(upload_to='Aadhaarback/')
+    image4 = models.ImageField(upload_to='Rental/')
+
+
+   
 
         	
 def __str__(self):
@@ -98,7 +103,8 @@ phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                 message = "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.OneToOneField(User,on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=17,validators=[phone_regex],unique=True)
     email_verified = models.BooleanField(default=False)
     uuid = models.UUIDField(default=uuid.uuid4,editable=False)
