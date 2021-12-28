@@ -4,7 +4,7 @@
 ![alt text](https://github.com/priyanshu9888/tanentverify-image/blob/main/readme.png
 )
  web application using django 
-![alt text]( https://github.com/priyanshu9888/tanentverify-image/blob/main/Screenshot%20(11)
+![alt text]( https://github.com/priyanshu9888/tanentverify-image/blob/main/Screenshot%20(11).png
 )
 
 
